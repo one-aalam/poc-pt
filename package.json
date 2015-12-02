@@ -4,7 +4,10 @@
   "description": "A simple POC exploring some beautiful Javascript libraries for a scalable application",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "WEBPACK_ENV=dev webpack-dev-server",
+    "start": "http-server --port ${PORT:-8080} build",
+    "prestart": "npm run build",
+    "build": "mkdir -p build && WEBPACK_ENV=production webpack && ncp src/static/ build/"
   },
   "keywords": [
     "Marko",
