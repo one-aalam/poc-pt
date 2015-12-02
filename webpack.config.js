@@ -1,5 +1,6 @@
 var webpack = require('webpack');
-	ExtractTextPlugin = require("extract-text-webpack-plugin");
+	ExtractTextPlugin = require("extract-text-webpack-plugin"),
+	HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
 	// your root file
@@ -48,6 +49,11 @@ module.exports = {
 	},
 
 	plugins: ([
+		// Auto-generate 'index.html' or provide one of your own
+		new HtmlWebpackPlugin({
+			title: "POC-PT"
+		}),
+
 		// Avoid publishing files when compilation failed:
 		new webpack.NoErrorsPlugin(),
 
