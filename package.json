@@ -12,5 +12,16 @@
     "Webpack"
   ],
   "author": "Aftab Alam",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer-loader": "3.1.0",
+    "babel-loader": "6.2.0",
+    "css-loader": "0.23.0",
+    "extract-text-webpack-plugin": "0.9.1",
+    "http-server": "0.8.5",
+    "source-map-loader": "0.1.5",
+    "style-loader": "0.13.0",
+    "webpack": "1.12.9",
+    "webpack-dev-server": "1.14.0"
+  }
 }
