@@ -7,7 +7,8 @@
     "dev": "WEBPACK_ENV=dev webpack-dev-server",
     "start": "http-server --port ${PORT:-8080} build",
     "prestart": "npm run build",
-    "build": "mkdir -p build && WEBPACK_ENV=production webpack && ncp src/static/ build/"
+    "build": "mkdir -p build && WEBPACK_ENV=production webpack && ncp src/static/ build/",
+    "server": "node server-es6"
   },
   "keywords": [
     "Marko",
@@ -18,11 +19,19 @@
   "license": "ISC",
   "dependencies": {
     "autoprefixer-loader": "3.1.0",
+    "babel": "6.1.18",
     "babel-core": "6.2.1",
     "babel-loader": "6.2.0",
+    "babel-preset-es2015": "6.1.18",
+    "body-parser": "1.14.1",
+    "cookie-parser": "1.4.0",
     "css-loader": "0.23.0",
+    "express": "4.13.3",
     "extract-text-webpack-plugin": "0.9.1",
     "http-server": "0.8.5",
+    "marko": "2.7.30",
+    "morgan": "1.6.1",
+    "serve-favicon": "2.3.0",
     "source-map-loader": "0.1.5",
     "style-loader": "0.13.0",
     "webpack": "1.12.9",

@@ -26,3 +26,6 @@ The app gets reloaded as files change.
 To deploy your static app, upload the contents of `build/` to a web server.
 
 Or, push this repo to heroku. `http-server` is used to serve the files in `build/`.
+
+##Inspiration
+http://www.slideshare.net/PatrickSteeleIdem/rediscovering-progressive-html-rendering-with-marko-templates-and-nodejs
