@@ -3,7 +3,7 @@ let router = express.Router();
 
 // WIP - Not endorsed for production usage
 // Not purely a middleware. Sorta patch
-// insanely used, to let lazy fellas
+// insanely used, to allow lazy fellas
 // proficient with `express` way of rendering pages
 // render pages using `marko` without being obtrusive
 export const patchMarkoRender = (req, res, next) => {
@@ -29,3 +29,9 @@ export const timeToRender = (req, res, next) => {
    console.log('Time: ', Date.now());
    next();
 }
+
+export const err = (err, req, res, next) => {
+	console.error(err.stack);
+	next();
+}
+

@@ -1,5 +1,11 @@
-Hello ${data.name}!
-
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><layout-placeholder name="title"/></title>
+</head>
+<body>
+<h1>Hello ${data.name}</h1>
 <ul if="notEmpty(data.colors)">
     <li style="color: $color" for="color in data.colors">
         $color
@@ -8,3 +14,9 @@ Hello ${data.name}!
 <div else>
     No colors!
 </div>
+
+<script type="text/javascript" src="scripts/vendors.js"></script>
+<script type="text/javascript" src="scripts/bundle.js"></script>
+
+</body>
+</html>

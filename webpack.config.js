@@ -1,15 +1,30 @@
-var webpack = require('webpack');
-	ExtractTextPlugin = require("extract-text-webpack-plugin"),
-	HtmlWebpackPlugin = require("html-webpack-plugin");
+import webpack from 'webpack';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import path from 'path';
+// Static reference to T3 file
+const pathToNodeModules = path.resolve(__dirname, 'node_modules');
 
-module.exports = {
-	// your root file
-	entry: './src/index.js',
+var deps = {
+  't3js': 't3js/dist/t3-2.0.2.min.js'
+};
 
-	// output JS bundle to: build/bundle.js
+var config = {
+
+  	entry: {
+    	app: [
+    	    'webpack/hot/dev-server',
+    		'webpack-hot-middleware/client',
+    		path.resolve(__dirname, 'src/index.js')
+    	],
+
+    	vendors: ['jquery', 't3js']
+  	},
+
 	output: {
-		path: './build',
-		filename: 'bundle.js'
+	    path: path.resolve(__dirname, 'dist'),
+	    filename: 'bundle.js',
+	    publicPath: '/scripts/'
 	},
 
 	resolve: {
@@ -18,7 +33,13 @@ module.exports = {
 		modulesDirectories: [
 			'./src/lib',
 			'node_modules'
-		]
+		],
+
+		extensions: ['', '.js', '.jsx'],
+
+		alias: {
+          
+        }
 	},
 
 	module: {
@@ -61,7 +82,13 @@ module.exports = {
 		new webpack.optimize.DedupePlugin(),
 
 		// Write out CSS bundle to its own file:
-		new ExtractTextPlugin('style.css', { allChunks: true })
+		new ExtractTextPlugin('style.css', { allChunks: true }),
+
+		new webpack.HotModuleReplacementPlugin(),
+
+		// Create separate bundle for vendor
+		new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js')
+
 	]).concat(process.env.WEBPACK_ENV==='dev' ? [] : [
 		new webpack.optimize.OccurenceOrderPlugin(),
 
@@ -69,19 +96,22 @@ module.exports = {
 		new webpack.optimize.UglifyJsPlugin({
 			output: { comments: false },
 			exclude: [ /\.min\.js$/gi ]		// skip pre-minified libs
-		})
+		}),
+
+		// Create separate bundle for vendor
+		new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js')
 	]),
 
 	// Pretty terminal output
 	stats: { colors: true },
 
 	// Generate external sourcemaps for the JS & CSS bundles
-	devtool: 'source-map',
-
-	// `webpack-dev-server` spawns a live-reloading HTTP server for your project.
-	devServer: {
-		port: process.env.PORT || 8080,
-		contentBase: './src',
-		historyApiFallback: true
-	}
+	devtool: 'source-map'
 };
+
+for (let key in deps) {
+   config.resolve.alias[key] = deps[key];
+   config.module.noParse.push(deps[key]);
+}
+
+module.exports = config;
