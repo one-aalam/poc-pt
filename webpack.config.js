@@ -12,6 +12,10 @@ module.exports = {
 		filename: 'bundle.js'
 	},
 
+	externals: {
+    	//jquery: 'jQuery'
+    },
+
 	resolve: {
 		// you can load named modules from any dirs you want.
 		// attempts to find them in the specified order.
@@ -36,8 +40,11 @@ module.exports = {
 			// transpile ES6/7 to ES5 via babel
 			{
 				test: /\.jsx?$/,
-				exclude: /node_modules/,
-				loader: 'babel'
+				exclude: /(node_modules|bower_components)/,
+				loader: 'babel-loader',
+				query: {
+					presets: ['es2015', 'react']
+				}
 			},
 			// bundle LESS and CSS into a single CSS file, auto-generating -vendor-prefixes
 			{
@@ -59,6 +66,14 @@ module.exports = {
 
 		// Aggressively remove duplicate modules:
 		new webpack.optimize.DedupePlugin(),
+
+		// Make $ available wherever required
+		new webpack.ProvidePlugin({
+    		$: "jquery",
+    		jQuery: "jquery",
+    		"window.jQuery": "jquery",
+    		Box:"Box"
+		}),
 
 		// Write out CSS bundle to its own file:
 		new ExtractTextPlugin('style.css', { allChunks: true })
