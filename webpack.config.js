@@ -18,7 +18,7 @@ var config = {
     		path.resolve(__dirname, 'src/index.js')
     	],
 
-    	vendors: ['jquery', 't3js']
+    	vendors: ['jquery']
   	},
 
 	output: {
@@ -65,7 +65,12 @@ var config = {
 				test: /\.(less|css)$/,
 				exclude: /\b(some\-css\-framework|whatever)\b/i,
 				loader: ExtractTextPlugin.extract("style?sourceMap", "css?sourceMap!autoprefixer?browsers=last 2 version!less")
-			}
+			},
+			// Expose plugin required in global scope
+			{
+      			test: path.resolve(pathToNodeModules, deps['t3js']),
+      			loader: "expose?Box"
+    		}
 		]
 	},
 
