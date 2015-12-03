@@ -39,7 +39,7 @@ function create(__helpers) {
       out.w('<div>No colors!</div>');
     }
 
-    out.w('<script type="text/javascript" src="scripts/vendors.js"></script><script type="text/javascript" src="scripts/bundle.js"></script></body></html>');
+    out.w('<div data-module="my-module"><button data-type="submit-btn">Submit</button></div><script type="text/javascript" src="scripts/vendors.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/t3js/2.0.2/t3.min.js"></script><script type="text/javascript" src="scripts/bundle.js"></script></body></html>');
   };
 }
 (module.exports = require("marko").c(__filename)).c(create);

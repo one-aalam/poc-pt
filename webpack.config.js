@@ -65,12 +65,7 @@ var config = {
 				test: /\.(less|css)$/,
 				exclude: /\b(some\-css\-framework|whatever)\b/i,
 				loader: ExtractTextPlugin.extract("style?sourceMap", "css?sourceMap!autoprefixer?browsers=last 2 version!less")
-			},
-			// Expose plugin required in global scope
-			{
-      			test: path.resolve(pathToNodeModules, deps['t3js']),
-      			loader: "expose?Box"
-    		}
+			}
 		]
 	},
 
@@ -89,6 +84,13 @@ var config = {
 		// Write out CSS bundle to its own file:
 		new ExtractTextPlugin('style.css', { allChunks: true }),
 
+		//
+		new webpack.ProvidePlugin({
+    		$: "jquery",
+    		jQuery: "jquery"
+		}),
+
+		//
 		new webpack.HotModuleReplacementPlugin(),
 
 		// Create separate bundle for vendor
@@ -101,14 +103,13 @@ var config = {
 		new webpack.optimize.UglifyJsPlugin({
 			output: { comments: false },
 			exclude: [ /\.min\.js$/gi ]		// skip pre-minified libs
-		}),
-
-		// Create separate bundle for vendor
-		new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js')
+		})
 	]),
 
 	// Pretty terminal output
 	stats: { colors: true },
+
+	externals: { box: "Box" },
 
 	// Generate external sourcemaps for the JS & CSS bundles
 	devtool: 'source-map'
