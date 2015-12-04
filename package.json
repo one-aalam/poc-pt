@@ -31,6 +31,7 @@
     "extract-text-webpack-plugin": "0.9.1",
     "http-server": "0.8.5",
     "jquery": "2.1.4",
+    "lodash": "3.10.1",
     "marko": "2.7.30",
     "morgan": "1.6.1",
     "serve-favicon": "2.3.0",
@@ -42,6 +43,7 @@
   },
   "devDependencies": {
     "expose-loader": "0.7.1",
+    "plop": "1.1.0",
     "webpack-dev-middleware": "1.4.0",
     "webpack-hot-middleware": "2.6.0"
   }

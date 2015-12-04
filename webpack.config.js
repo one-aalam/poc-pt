@@ -18,13 +18,13 @@ var config = {
     		path.resolve(__dirname, 'src/index.js')
     	],
 
-    	vendors: ['jquery']
+    	vendors: ['jquery', 'lodash']
   	},
 
 	output: {
 	    path: path.resolve(__dirname, 'dist'),
-	    filename: 'bundle.js',
-	    publicPath: '/scripts/'
+	    filename: '[name].js',
+	    publicPath: '/scripts'
 	},
 
 	resolve: {
@@ -116,8 +116,8 @@ var config = {
 };
 
 for (let key in deps) {
-   config.resolve.alias[key] = deps[key];
-   config.module.noParse.push(deps[key]);
+   config.resolve.alias[key] = path.resolve(pathToNodeModules, deps[key]);
+   config.module.noParse.push(path.resolve(pathToNodeModules, deps[key]));
 }
 
 module.exports = config;
