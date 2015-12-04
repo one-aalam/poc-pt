@@ -35,7 +35,11 @@ if(isDeveloping){
 
 	app.use(require('webpack-dev-middleware')(compiler, {
 	  noInfo: true,
-	  publicPath: webpackCnfg.output.publicPath
+	  hot: true,
+	  publicPath: webpackCnfg.output.publicPath,
+	  stats: {
+        colors: true
+      }
 	}));
 
 	app.use(require('webpack-hot-middleware')(compiler));

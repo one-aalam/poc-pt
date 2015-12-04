@@ -1,36 +1,46 @@
-import Box from 't3js?window=this';
+import Box from 't3js?$=jquery';
+
+const requireAsync = () => {
+	const _c = confirm('Are you sure?');
+	if(_c){
+		require.ensure([], () => { 
+	    	require('./hello'); 
+	  	});
+	}
+};
 
 jQuery(document).ready(() => {	
-	
-	$('#btnLoadAsync').on('click', () => {
-		const _c = confirm('Are you sure?');
-		if(_c){
-			require.ensure([], () => { 
-	    		require('./hello'); 
-	  		});
-		}
+
+    Box.Application.addModule('my-module', function(context) {
+		'use strict';
+
+	    return {
+	    	onclick: function(event, element, elementType) {
+	    		var moduleEl = context.getElement();
+
+	    		if (elementType === 'btn-load-async') {
+	    			requireAsync();
+	    			event.preventDefault();
+	    		}
+            
+        	},
+	        behavior: ['making-el-ready'],
+	        init: function() {},
+	        destroy: function(){}
+	    };
 	});
 
-	console.log(Box);
-	
-	/*
-
-	Box.Application.addBehavior('some-behavior', function(context) {
+    // Just some logging...so we know...
+	Box.Application.addBehavior('making-el-ready', function(context) {
 	    return {
 	        init: function() {
-	            console.log('foo');
+	            console.log('Booting up!');
 	        }
 	    };
 	});
 
-	Box.Application.addModule('my-module', function(context) {
-	    return {
-	        behavior: ['some-behavior'],
-	        init: function() {
-	            console.log('bar');
-	        }
-	    };
-	});*/
-
-	Box.Application.start('[data-module="my-module"]').bind(this);
+	// Enable Debug mode
+	Box.Application.init({
+		debug: true
+	});
 });

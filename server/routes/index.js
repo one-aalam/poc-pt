@@ -6,7 +6,7 @@ const template = require('../views/index');
 // define the home page route
 router.get('/', function(req, res) {
   res.r('index', {
-            name: 'Frank',
+            name: 'Howdy',
             colors: ["red", "green", "blue"]
     });
 });

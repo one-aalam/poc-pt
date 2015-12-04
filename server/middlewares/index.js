@@ -11,6 +11,8 @@ export const patchMarkoRender = (req, res, next) => {
   // View directory
   const VIEW_DIR = '../views/' ;
 
+  const out = require('fs').createWriteStream('index.html', {encoding: 'utf8'});
+
   // Render callback's name
   const _renderCbName = 'r' ;
 

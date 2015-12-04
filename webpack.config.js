@@ -18,7 +18,7 @@ var config = {
     		path.resolve(__dirname, 'src/index.js')
     	],
 
-    	vendors: ['jquery', 'lodash']
+    	vendors: ['jquery', 'lodash', 't3js']
   	},
 
 	output: {
@@ -69,6 +69,10 @@ var config = {
 		]
 	},
 
+	resolveLoader: {
+		root: pathToNodeModules
+	},
+
 	plugins: ([
 		// Auto-generate 'index.html' or provide one of your own
 		new HtmlWebpackPlugin({
@@ -109,15 +113,13 @@ var config = {
 	// Pretty terminal output
 	stats: { colors: true },
 
-	externals: { box: "Box" },
-
 	// Generate external sourcemaps for the JS & CSS bundles
 	devtool: 'source-map'
 };
 
 for (let key in deps) {
-   config.resolve.alias[key] = path.resolve(pathToNodeModules, deps[key]);
-   config.module.noParse.push(path.resolve(pathToNodeModules, deps[key]));
+  // config.resolve.alias[key] = path.resolve(pathToNodeModules, deps[key]);
+  // config.module.noParse.push(path.resolve(pathToNodeModules, deps[key]));
 }
 
 module.exports = config;
