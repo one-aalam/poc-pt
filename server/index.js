@@ -73,7 +73,7 @@ app.use(patchMarkoRender);
 app.use('/', routes);
 app.use('/users', users);
 
-// Start! :)
+// Start!
 const server = app.listen(port, () => {
   var host = server.address().address;
   var port = server.address().port;

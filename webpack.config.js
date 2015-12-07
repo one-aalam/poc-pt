@@ -32,14 +32,26 @@ var config = {
 		// attempts to find them in the specified order.
 		modulesDirectories: [
 			'./src/lib',
-			'node_modules'
+			'node_modules',
+			'bower_components',
+			'./src',
+			'./src/scripts'
 		],
 
-		extensions: ['', '.js', '.jsx'],
+		extensions: ['', '.js', '.jsx', '.json', '.jade', '.css', '.webpack.js'],
 
 		alias: {
           
         }
+	},
+    // Solves a bug with 'dot'
+    // similar https://github.com/webpack/jade-loader/issues/8
+    // basically normalizes stuff not accessible in browser
+	node: {
+  		console: true,
+	    fs: 'empty',
+	    net: 'empty',
+	    tls: 'empty'
 	},
 
 	module: {
@@ -65,7 +77,33 @@ var config = {
 				test: /\.(less|css)$/,
 				exclude: /\b(some\-css\-framework|whatever)\b/i,
 				loader: ExtractTextPlugin.extract("style?sourceMap", "css?sourceMap!autoprefixer?browsers=last 2 version!less")
-			}
+			},
+			// JSON
+			{ 
+				test: /\.json$/, 
+				loader: 'json-loader' 
+			},
+			// Styles
+            { 
+            	test: /\.css$/, 
+            	loader: 'style-loader!css-loader' 
+            },
+            // SASS
+            /*
+            { 
+            	test: /\.s(a|c)ss$/, 
+            	loader: 'style!css?localIdentName=[path][name]---[local]---[hash:base64:5]!postcss!sass' 
+            },*/
+
+            // Fonts
+            { 
+            	test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
+            	loader: 'url-loader?limit=10000&minetype=application/font-woff' 
+            },
+            { 
+            	test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
+            	loader: 'file-loader' 
+            }
 		]
 	},
 
@@ -117,9 +155,6 @@ var config = {
 	devtool: 'source-map'
 };
 
-for (let key in deps) {
-  // config.resolve.alias[key] = path.resolve(pathToNodeModules, deps[key]);
-  // config.module.noParse.push(path.resolve(pathToNodeModules, deps[key]));
-}
+
 
 module.exports = config;

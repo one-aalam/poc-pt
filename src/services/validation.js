@@ -1,4 +1,4 @@
-function validationService(application){
+export default function validationService(application){
 
 	return {
 		isFilled(val){
@@ -9,6 +9,4 @@ function validationService(application){
 			return val.indexOf('@') != -1 ? true : false;
 		}
 	};
-};
-
-module.exports = validationService;
+}

@@ -39,7 +39,7 @@ function create(__helpers) {
       out.w('<div>No colors!</div>');
     }
 
-    out.w('<div data-module="my-module"><button id="btnLoadAsync" data-type="btn-load-async">Load Asynchronously!</button></div><script type="text/javascript" src="scripts/vendors.js"></script><script type="text/javascript" src="scripts/app.js"></script></body></html>');
+    out.w('<div data-module="async-loader"><button id="btnLoadAsync" data-type="btn-load-async">Load Asynchronously!</button></div><script type="text/javascript" src="scripts/vendors.js"></script><script type="text/javascript" src="scripts/app.js"></script></body></html>');
   };
 }
 (module.exports = require("marko").c(__filename)).c(create);

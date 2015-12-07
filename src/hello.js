@@ -1,2 +1,2 @@
-alert("Hello from Asyncy!");
+alert("Hello from Async universe!");
 $('#btnLoadAsync').remove();
