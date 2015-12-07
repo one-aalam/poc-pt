@@ -15,10 +15,10 @@ That's it.
 **Start the live-reload dev server:**
 
 ```sh
-PORT=8080 npm run dev
+npm run server
 ```
 
-Open up http://localhost:8080/webpack-dev-server/ to see your app.
+Open up http://localhost:3001 to see your app.
 The app gets reloaded as files change.
 
 ## Deployment Workflow
