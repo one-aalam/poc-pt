@@ -27,6 +27,7 @@
     "cookie-parser": "1.4.0",
     "css-loader": "0.23.0",
     "dot": "1.0.3",
+    "dot-tpl-loader": "1.2.0",
     "dotjs": "0.2.0",
     "express": "4.13.3",
     "extract-text-webpack-plugin": "0.9.1",
