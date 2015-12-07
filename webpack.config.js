@@ -54,6 +54,13 @@ var config = {
 	    tls: 'empty'
 	},
 
+	// PostCSS configurations to use
+	postcss: [
+	    require('autoprefixer')({ 
+	    	browsers: ['last 2 versions'] 
+	    })
+  	],
+
 	module: {
 		// you can tell webpack to avoid parsing for dependencies in any files matching an Array of regex patterns
 		noParse: [
@@ -72,12 +79,6 @@ var config = {
 				exclude: /node_modules/,
 				loader: 'babel'
 			},
-			// bundle LESS and CSS into a single CSS file, auto-generating -vendor-prefixes
-			{
-				test: /\.(less|css)$/,
-				exclude: /\b(some\-css\-framework|whatever)\b/i,
-				loader: ExtractTextPlugin.extract("style?sourceMap", "css?sourceMap!autoprefixer?browsers=last 2 version!less")
-			},
 			//
 			{ 
 				test: /\.dot$/, 
@@ -89,10 +90,14 @@ var config = {
 				loader: 'json-loader' 
 			},
 			// Styles
-            { 
+			// Uses CSS Modules Spec (https://github.com/css-modules/css-modules) and
+			// 
+			{ 
             	test: /\.css$/, 
-            	loader: 'style-loader!css-loader' 
+            	// loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader') // to extract in its own file
+            	loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader' 
             },
+
             // SASS
             /*
             { 
@@ -108,7 +113,21 @@ var config = {
             { 
             	test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
             	loader: 'file-loader' 
-            }
+            },
+
+            // Images
+            {
+            	test: /\.svg$/, 
+            	loader: "url-loader?limit=10000&mimetype=image/svg+xml"
+            },
+            { 
+            	test: /\.png$/, 
+            	loader: "url-loader?limit=100000" 
+            },
+      		{ 
+      			test: /\.jpg$/, 
+      			loader: "file-loader" 
+      		}
 		]
 	},
 
